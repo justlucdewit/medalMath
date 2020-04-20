@@ -1,0 +1,35 @@
+vragen:
+// design en layout
+- is het een compleet nieuw programma, of is het een vervanging van oude software?
+- zo ja, wat was het oude design, en is er iets wat je daarvan wil mee nemen?
+- wat voor pagina's moeten er komen, homepage, login?, opdrachten?
+- wat is de gewenste uitstraling van het programma?
+- is er een kleuren pallete? Hoeveel kleuren moeten er gebruikt worden?
+- wat is de leeftijd van de gebruikers? ->groep4,5,6
+
+// systeem
+- moet er een mobile app zijn of een website of in welke andere vorm?
+- (vervanging oude software) wat was er mis met het oude systeem?
+- zijn er beperkingen waarmee we rekening moeten houden? (blind doof etc)
+- automatisch gegenereerde vragen, of een bepaalde hoeveelheid vragen die gemaakt door een admin?
+- zijn er verschillende moeilijkheid niveaus voor de leerlingen?
+- welke gegevens moeten verwerkt worden?
+- welke systemen worden er gebruikt voor de site (pc, mobile?)
+- welke reken onderwerpen moeten behandeld worden?
+- wat voor soort opdrachten moeten er zijn?
+  > drag en drop?
+  > multiple choise?
+  > leuke minigames?
+- voor welke talen moet er support zijn (nederlands, engels?)
+
+
+
+// beveiliging
+- moeten er een account systeem zijn?
+- moet er een admin account zijn?
+- (als er een admin is) welke informatie kan de admin zien van de leerlingen
+  > naam
+  > progressie met opdrachten
+  > cijfers
+
+
