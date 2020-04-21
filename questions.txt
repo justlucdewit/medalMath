@@ -1,35 +1,75 @@
 vragen:
+
 // design en layout
 - is het een compleet nieuw programma, of is het een vervanging van oude software?
 - zo ja, wat was het oude design, en is er iets wat je daarvan wil mee nemen?
 - wat voor pagina's moeten er komen, homepage, login?, opdrachten?
 - wat is de gewenste uitstraling van het programma?
+- moeten er veel afbeeldingen gebruikt worden?
 - is er een kleuren pallete? Hoeveel kleuren moeten er gebruikt worden?
-- wat is de leeftijd van de gebruikers? ->groep4,5,6
+- wat is de leeftijd van de gebruikers? ->groep 4,5,6
 
 // systeem
 - moet er een mobile app zijn of een website of in welke andere vorm?
+beide
 - (vervanging oude software) wat was er mis met het oude systeem?
+
 - zijn er beperkingen waarmee we rekening moeten houden? (blind doof etc)
-- automatisch gegenereerde vragen, of een bepaalde hoeveelheid vragen die gemaakt door een admin?
-- zijn er verschillende moeilijkheid niveaus voor de leerlingen?
+
+
+- automatisch gegenereerde vragen, of een bepaalde hoeveelheid vragen die gemaakt door een admin? auto
+- zijn er verschillende moeilijkheid niveaus voor de leerlingen? prijs
 - welke gegevens moeten verwerkt worden?
 - welke systemen worden er gebruikt voor de site (pc, mobile?)
 - welke reken onderwerpen moeten behandeld worden?
 - wat voor soort opdrachten moeten er zijn?
   > drag en drop?
   > multiple choise?
-  > leuke minigames?
-- voor welke talen moet er support zijn (nederlands, engels?)
+  > leuke minigames? invul
+- voor welke talen moet er support zijn (nederlands, engels?) nee
 
 
 
 // beveiliging
-- moeten er een account systeem zijn?
+- moeten er een account systeem zijn? 
 - moet er een admin account zijn?
 - (als er een admin is) welke informatie kan de admin zien van de leerlingen
-  > naam
-  > progressie met opdrachten
-  > cijfers
+  > naam v
+  > progressie met opdrachten v
+  > cijfers v
 
 
+AANTEKENINGEN
+
+groep 4 geen deelsommen optr aftr tot aan 10
+groep 5 tot aan 100 + deelsommen
+groep 6 tot aan 1000
+3 sets
+toetsen afnemen
+kale sommen 2+3 geen verhaaltjes
+beker/goed gedaan
+Geen vervanging van oude systeem
+Geen thema, plaatjes maar niet te veel. Aantrekkelijk voor kinderen uit groep 4,5,6
+
+account, docenten moeten kunnen zien hoever de leerlingen zijn. Beveiliging AVG docent moet zijn eigen klas kunnen zien. 
+
+oefeningen:
+
+groep 4:
+plus sommen tot 10
+min sommen tot 10
+plus en min sommen tot 10
+
+groep 5:
+keer sommen tot 10
+deel sommen tot 10
+deel en keer sommen tot 10
+deel plust keer en deel sommen tot 10
+keer sommen tot 100
+deel sommen tot 100
+keer en deel sommen tot 100
+deel plust keer end deel sommen tot 100
+
+groep 6:
+plus en min tot 100 met negatief
+plus min keer delen door tot 1000
