@@ -16,11 +16,23 @@ export const insertQuestion = (QID: string, questions: string[]) => {
     .replace("T", " ")
     .replace("Z", "")}', '{${getAnswers(questions)}}');`;
 
+  // execute query
   pool.query(query, (err, res) => {
     if (err) {
       console.error(err);
     } else {
       console.info("[info] inserted new pending test");
+    }
+  });
+};
+
+export const cleanPending = () => {
+  const query = `DELETE FROM pendingtests WHERE time < now() - interval '3 hour'`;
+  pool.query(query, (err) => {
+    if (err) {
+      console.error(
+        "[error] an error occured while cleaning the pendingtest table: " + err
+      );
     }
   });
 };

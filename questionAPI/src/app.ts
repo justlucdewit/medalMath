@@ -5,7 +5,11 @@ import Router from "koa-router";
 // import some custom functions to handle question generation
 // and also database opperations
 import { generateQuestionArray } from "./questions";
-import { insertQuestion, retrieveAllPending } from "./databaseOperations";
+import {
+  insertQuestion,
+  retrieveAllPending,
+  cleanPending,
+} from "./databaseOperations";
 
 // import uuid lib so i can generate uuid's
 import { v4 as uuidv4 } from "uuid";
@@ -22,6 +26,7 @@ app.use(router.routes());
 // this page is so we can view what tests are
 // currently still waiting for answer submission
 router.get("/view", async (ctx) => {
+  await cleanPending();
   let res = await retrieveAllPending();
   ctx.body = `${res.rows.length} tests pending: \n\n`;
   for (const i in res.rows) {
@@ -38,6 +43,7 @@ router.get("/", (ctx) => {
 // this page is for generating a new question
 // that will be waiting in the database for the answers
 router.get("/question", (ctx) => {
+  cleanPending();
   const count = ctx.query.count === undefined ? 1 : ctx.query.count;
   const max = ctx.query.max === undefined ? 2 : ctx.query.max;
   const terms = ctx.query.terms === undefined ? 2 : ctx.query.terms;
