@@ -9,6 +9,7 @@ import {
   insertQuestion,
   retrieveAllPending,
   cleanPending,
+  resolvePending,
 } from "./databaseOperations";
 
 // import uuid lib so i can generate uuid's
@@ -71,6 +72,14 @@ router.get("/question", (ctx) => {
   };
 
   insertQuestion(QID, questions);
+});
+
+// this page is used for submitting your personal answers
+// you will recieve the real answers, and the pending test
+// will be wiped from the database
+router.get("/submit/:uuid", async (ctx) => {
+  const res = await resolvePending(ctx.params.uuid);
+  ctx.body = res;
 });
 
 // create use a port to host the api

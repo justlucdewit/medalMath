@@ -9,7 +9,7 @@ const query = promisify(pool.query.bind(pool));
 
 export const insertQuestion = (QID: string, questions: string[]) => {
   // build query
-  const query = `INSERT INTO pendingtests(uuid, time, answers) VALUES ('${QID.split(
+  const queryString = `INSERT INTO pendingtests(uuid, time, answers) VALUES ('${QID.split(
     "-"
   ).join("")}', '${new Date()
     .toJSON()
@@ -17,7 +17,7 @@ export const insertQuestion = (QID: string, questions: string[]) => {
     .replace("Z", "")}', '{${getAnswers(questions)}}');`;
 
   // execute query
-  pool.query(query, (err, res) => {
+  pool.query(queryString, (err, res) => {
     if (err) {
       console.error(err);
     } else {
@@ -27,14 +27,29 @@ export const insertQuestion = (QID: string, questions: string[]) => {
 };
 
 export const cleanPending = () => {
-  const query = `DELETE FROM pendingtests WHERE time < now() - interval '3 hour'`;
-  pool.query(query, (err) => {
+  const queryString = `DELETE FROM pendingtests WHERE time < now() - interval '3 hour'`;
+  pool.query(queryString, (err) => {
     if (err) {
       console.error(
         "[error] an error occured while cleaning the pendingtest table: " + err
       );
     }
   });
+};
+
+export const resolvePending = async (uuid: string) => {
+  const queryString = `SELECT * FROM pendingtests WHERE uuid = '${uuid}'`;
+  let res = await query(queryString);
+  console.log(res);
+  if (res.rows.length === 0) {
+    console.error(
+      "[error] somone tried submitting a pendingtest that wasnt stored anymore"
+    );
+    return "something went wrong, unfortunatly this means that you will have to do the test again :(\nthis could happen if you take longer then 3 hours for 1 test";
+  }
+
+  query(`DELETE FROM pendingtests WHERE uuid = '${uuid}'`);
+  return res.rows[0];
 };
 
 export const retrieveAllPending = async () => {
