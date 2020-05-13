@@ -11,13 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/koa": "^2.11.3",
-    "@types/koa-router": "^7.4.0",
-    "@types/uuid": "^7.0.3",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-router": "^8.0.8",
     "pg": "^8.1.0",
     "uuid": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^7.14.3",
+    "@types/koa": "^2.11.3",
+    "@types/koa-router": "^7.4.0",
+    "@types/uuid": "^7.0.3"
   }
 }
