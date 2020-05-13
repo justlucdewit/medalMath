@@ -2,39 +2,41 @@
 import * as Koa from "koa";
 import * as Router from "koa-router";
 
-// import the
+// import some custom functions to handle question generation
+// and also database opperations
 import { generateQuestionArray } from "./questions";
+import { insertQuestion, retrieveAllPending } from "./databaseOperations";
+
+// import uuid lib so i can generate uuid's
 import { v4 as uuidv4 } from "uuid";
 
-const pg = require("pg");
-const connectionString =
-  "postgres://postgres:{password}@localhost:5432/rekensite";
-const pool = new pg.Pool({
-  connectionString: connectionString,
-});
-
+// select port and generate the koa app
+const port = 5000;
 const app = new Koa();
 const router = new Router();
 
+// make koa the router
 app.use(router.allowedMethods());
 app.use(router.routes());
 
-app.use(require("koa-body"));
-
-router.get("/view", (ctx) => {
-  pool.connect((err, client, done) => {
-    if (err) {
-      console.log("[PG ERROR]: " + err);
-    } else {
-      console.log("[SUCCES]");
-    }
-  });
+// this page is so we can view what tests are
+// currently still waiting for answer submission
+router.get("/view", async (ctx) => {
+  let res = await retrieveAllPending();
+  ctx.body = `${res.rows.length} tests pending: \n\n`;
+  for (const i in res.rows) {
+    ctx.body += `id: [${res.rows[i].uuid}]\nstarted: [${res.rows[i].time}]\nanswers: [${res.rows[i].answers}]\n\n`;
+  }
 });
 
+// this page is the main page, it will explain
+// how to use the questions API
 router.get("/", (ctx) => {
   ctx.body = "api usage: do /question to get automaticly generated questions";
 });
 
+// this page is for generating a new question
+// that will be waiting in the database for the answers
 router.get("/question", (ctx) => {
   const count = ctx.query.count === undefined ? 1 : ctx.query.count;
   const max = ctx.query.max === undefined ? 2 : ctx.query.max;
@@ -46,21 +48,26 @@ router.get("/question", (ctx) => {
   const negatives =
     ctx.query.negatives === undefined ? false : ctx.query.negatives === "true";
 
-  const QID = uuidv4();
+  const QID: string = uuidv4();
+  const questions = generateQuestionArray(
+    {
+      maxDigits: max,
+      numberOfTerms: terms,
+      operatorsAllowed: operators,
+      negativesAllowed: negatives,
+    },
+    count
+  );
+
   ctx.body = {
-    questions: generateQuestionArray(
-      {
-        maxDigits: max,
-        numberOfTerms: terms,
-        operatorsAllowed: operators,
-        negativesAllowed: negatives,
-      },
-      count
-    ),
+    questions: questions,
     uuid: QID,
   };
+
+  insertQuestion(QID, questions);
 });
 
-app.listen(5000, function () {
-  return console.log("server started");
+// create use a port to host the api
+app.listen(port, function () {
+  return console.log(`server started ${port}`);
 });

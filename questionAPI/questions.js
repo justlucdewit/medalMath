@@ -18,6 +18,13 @@ exports.generateQuestion = function (config) {
     }
     return q;
 };
+exports.getAnswers = function (questions) {
+    var answers = [];
+    for (var q in questions) {
+        answers.push(eval(questions[q]));
+    }
+    return answers;
+};
 exports.generateQuestionArray = function (config, amount) {
     config.operatorsAllowed = config.operatorsAllowed.map(function (element) {
         return element === " " ? "+" : element;

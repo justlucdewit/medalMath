@@ -25,6 +25,14 @@ export const generateQuestion = (config: questionConfig) => {
   return q;
 };
 
+export const getAnswers = (questions: Array<string>) => {
+  let answers: number[] = [];
+  for (const q in questions) {
+    answers.push(eval(questions[q]));
+  }
+  return answers;
+};
+
 export const generateQuestionArray = (
   config: questionConfig,
   amount: number
