@@ -1,6 +1,6 @@
 // import stuff for koa (so i can host the API)
-import * as Koa from "koa";
-import * as Router from "koa-router";
+import Koa from "koa";
+import Router from "koa-router";
 
 // import some custom functions to handle question generation
 // and also database opperations
