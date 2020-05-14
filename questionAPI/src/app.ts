@@ -16,7 +16,6 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 // select port and generate the koa app
-const port = 5000;
 const app = new Koa();
 const router = new Router();
 
@@ -83,6 +82,6 @@ router.get("/submit/:uuid", async (ctx) => {
 });
 
 // create use a port to host the api
-app.listen(port, function () {
-  return console.log(`server started ${port}`);
+app.listen(process.env.PORT, function () {
+  return console.log(`server started ${process.env.PORT}`);
 });

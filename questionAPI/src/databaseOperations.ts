@@ -1,10 +1,17 @@
 import { getAnswers } from "./questions";
 import { promisify } from "util";
 
+require("dotenv").config();
+
 // initialize database connection
 const pg = require("pg");
-const connectionString = "postgres://postgres:sheba1@localhost:5432/rekensite";
-const pool = new pg.Pool({ connectionString: connectionString });
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+const pool = new pg.Pool({
+  connectionString: process.env.DATABASEURL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 const query = promisify(pool.query.bind(pool));
 
 export const insertQuestion = (QID: string, questions: string[]) => {
