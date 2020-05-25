@@ -4,8 +4,8 @@
   "description": "",
   "main": "./dist/app.js",
   "scripts": {
-    "dev": "nodemon ./dist/app.js",
-    "start": "node ./dist/app.js",
+    "dev": "nodemon ./backend/dist/app.js",
+    "start": "node ./backend/dist/app.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,7 @@
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-router": "^8.0.8",
+    "koa-send": "^5.0.0",
     "pg": "^8.1.0",
     "uuid": "^8.0.0"
   },

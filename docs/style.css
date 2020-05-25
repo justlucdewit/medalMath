@@ -143,5 +143,45 @@ hr {
     font-size: 15px;
 }
 
+.login{
+    width: 100vw;
+    text-align: center;
+    position: absolute;
+    top: 40vh;
+}
 
+.loginBox{
+    display: inline-block;
+    width: 40vw;
+    padding: 6px;
+    margin: 2px;
+    font-size: 20px;
+    border-radius: 2%;
+    border:0.3vw solid #8DD6EB;
+    background-color: #f1f7fd;
+}
 
+.errorBox{
+    display: inline-block;
+    width: 40vw;
+    padding: 6px;
+    margin: 2px;
+    font-size: 20px;
+    border-radius: 2%;
+    border:0.3vw solid #bd0f3a;
+    color: #bd0f3a;
+    background-color: #f2c4d0;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.loginButton{
+    display: inline-block;
+    padding: 6px;
+    margin: 2px;
+    font-size: 20px;
+    border-radius: 2%;
+    border:0.3vw solid #8DD6EB;
+    background-color: #f1f7fd;
+    color: #777;
+}

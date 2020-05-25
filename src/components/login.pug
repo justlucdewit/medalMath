@@ -1,0 +1,12 @@
+div.login
+	div.errorBox
+		| Password or username
+		br 
+		| invalid try again
+
+	form(action="./index.html", method="post")
+		input(placeholder="username", name="username").loginBox
+		br
+		input(type="password", placeholder="password", name="password").loginBox
+		br
+		button.loginButton Login

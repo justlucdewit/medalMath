@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "commonjs",
-    "outDir": "./dist",
+    "outDir": "./backend/dist",
     "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
@@ -10,6 +10,6 @@
     "moduleResolution": "node",
     "esModuleInterop": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["./backend/src"],
+  "exclude": ["./backend/node_modules"]
 }
