@@ -1,0 +1,146 @@
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;
+    margin: 0px;
+    top: 0px;
+    padding: 10px;
+    width:780px;
+}
+
+body {
+    background-color:#f1f7fd;
+    font-family: 'Roboto', sans-serif;
+}
+
+.page {
+    margin:auto;
+    overflow: auto;
+    position:relative;
+    width:2000px;
+}
+
+.blueMed, .greenMed, .redMed, .exBox, .navbar, .results, .homework {
+    float: left;
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    font-size: 18px;
+    height: 160px;
+    width: 250px;
+    padding: 10px;
+    text-align: center;
+    margin-top:-20px;
+    margin-left:50px;
+    border-radius:2%;
+    border:2px solid #8DD6EB;
+}
+
+.greenMed, .redMed {
+    margin-left:50px;
+}
+
+.blueMed a:link, .greenMed a:link, .redMed a:link {
+    color:black;
+    text-decoration:none;
+}
+
+.blueMed a:hover {
+    text-shadow:1px 1px #3DACCC;
+    
+}
+
+.greenMed a:hover {
+    text-shadow: 1px 1px green;
+}
+
+.redMed a:hover {
+    text-shadow: 1px 1px red;
+}
+
+.blueMed a:visited, .greenMed a:visited, .redMed a:visited {
+    color:black;
+    text-decoration:none;
+}
+
+.exBox {
+    margin-top:-160px;
+    height: 540px;
+    width: 900px;
+    text-align: start;
+    text-indent: 25px;
+    overflow:auto;
+}
+
+.logo {
+    padding:5px;
+    margin-left: 170px;
+    margin-top:30px;
+}
+
+.navbar {
+    margin-left: 100px;
+    margin-top: 20px;
+    width: 350px;
+    height: 710px;
+}
+
+.navtext {
+    float:left;
+    margin-top:120px;
+    margin-left:90px;
+    text-align:left;
+    line-height: 3;
+    height: 20px;
+    width: 40px;
+}
+
+.dash li {
+    list-style-image: url("images/dash.png");
+}
+
+.expl li {
+    list-style-image: url("images/expl.png");
+}
+
+.logout li {
+    list-style-image: url("images/logout.png");
+}
+
+.dash a:link, .expl a:link, .logout a:link {
+    color:black;
+    text-decoration:none;
+}
+
+.dash a:hover, .expl a:hover, .logout a:hover {
+    text-shadow:1px 1px #3DACCC;
+}
+
+.dash a:visited, .expl a:visited, .logout a:visited {
+    color:black;
+}
+
+.results {
+    text-align:left;
+    text-indent:25px;
+    height: 350px;
+    overflow:auto;
+}
+
+.homework {
+    text-align:left;
+    text-indent:25px;
+    margin-top:30px;
+    height:350px;
+    overflow:auto;
+}
+
+hr {
+    color:white;
+}
+
+.inputhomework, .inputexBox, .inputRes, .inputhomework {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
+
+
