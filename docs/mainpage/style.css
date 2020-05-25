@@ -16,7 +16,7 @@ body {
     margin:auto;
     overflow: auto;
     position:relative;
-    width:2000px;
+    width:100vw;
 }
 
 .blueMed, .greenMed, .redMed, .exBox, .navbar, .results, .homework {
@@ -25,17 +25,17 @@ body {
     background-color: white;
     font-size: 18px;
     height: 160px;
-    width: 250px;
+    width: 15vw;
     padding: 10px;
     text-align: center;
-    margin-top:-20px;
-    margin-left:50px;
+    margin-top:2vh;
+    margin-left:2vw;
     border-radius:2%;
     border:2px solid #8DD6EB;
 }
 
 .greenMed, .redMed {
-    margin-left:50px;
+    margin-left:2vw;
 }
 
 .blueMed a:link, .greenMed a:link, .redMed a:link {
@@ -63,8 +63,8 @@ body {
 
 .exBox {
     margin-top:-160px;
-    height: 540px;
-    width: 900px;
+    height: 500px;
+    width: 51.5vw;
     text-align: start;
     text-indent: 25px;
     overflow:auto;
@@ -72,21 +72,21 @@ body {
 
 .logo {
     padding:5px;
-    margin-left: 170px;
-    margin-top:30px;
+    margin-left: 5vw;
+    margin-top:2vh;
 }
 
 .navbar {
-    margin-left: 100px;
-    margin-top: 20px;
-    width: 350px;
+    margin-left: 2vw;
+    margin-top: 2vh;
+    width: 15vw;
     height: 710px;
 }
 
 .navtext {
     float:left;
     margin-top:120px;
-    margin-left:90px;
+    margin-left:1vw;
     text-align:left;
     line-height: 3;
     height: 20px;
@@ -128,8 +128,9 @@ body {
 .homework {
     text-align:left;
     text-indent:25px;
-    margin-top:30px;
-    height:350px;
+    margin-top:3vh;
+    margin-left:4vh;
+    height:310px;
     overflow:auto;
 }
 
