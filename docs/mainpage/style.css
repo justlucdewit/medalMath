@@ -10,6 +10,7 @@ h1 {
 body {
     background-color:#f1f7fd;
     font-family: 'Roboto', sans-serif;
+    overflow-x:hidden;
 }
 
 .page {
@@ -25,13 +26,12 @@ body {
     background-color: white;
     font-size: 18px;
     height: 160px;
-    width: 15vw;
-    padding: 10px;
+    width: 16vw;
     text-align: center;
     margin-top:2vh;
     margin-left:2vw;
     border-radius:2%;
-    border:2px solid #8DD6EB;
+    border:0.1vw solid #8DD6EB;
 }
 
 .greenMed, .redMed {
@@ -64,7 +64,7 @@ body {
 .exBox {
     margin-top:-160px;
     height: 500px;
-    width: 51.5vw;
+    width: 52.4vw;
     text-align: start;
     text-indent: 25px;
     overflow:auto;
@@ -79,8 +79,8 @@ body {
 .navbar {
     margin-left: 2vw;
     margin-top: 2vh;
-    width: 15vw;
-    height: 710px;
+    width: 20vw;
+    height: 690px;
 }
 
 .navtext {
@@ -129,7 +129,7 @@ body {
     text-align:left;
     text-indent:25px;
     margin-top:3vh;
-    margin-left:4vh;
+    margin-left:2vh;
     height:310px;
     overflow:auto;
 }
