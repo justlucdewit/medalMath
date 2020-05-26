@@ -63,3 +63,7 @@ export const retrieveAllPending = async () => {
   const queryString = "SELECT * FROM pendingtests";
   return await query(queryString);
 };
+
+export const credentialsValid = (username:string, password:string) => {
+  return false;
+}

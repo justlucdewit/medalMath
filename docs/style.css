@@ -173,6 +173,7 @@ hr {
     background-color: #f2c4d0;
     margin-bottom: 20px;
     text-align: left;
+    display: none;
 }
 
 .loginButton{

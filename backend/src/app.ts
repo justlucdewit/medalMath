@@ -4,6 +4,8 @@ import Koa from "koa";
 import Router from "koa-router";
 import path from "path";
 import fs from "fs";
+import bodyParser from "koa-bodyparser";
+import send from "koa-send";
 
 // import some custom functions to handle question generation
 // and also database opperations
@@ -13,6 +15,7 @@ import {
   retrieveAllPending,
   cleanPending,
   resolvePending,
+  credentialsValid,
 } from "./databaseOperations";
 
 // import uuid lib so i can generate uuid's
@@ -23,9 +26,12 @@ const app = new Koa();
 const router = new Router();
 
 // make koa the router
+app.use(bodyParser());
 app.use(router.allowedMethods());
 app.use(router.routes());
-
+app.use(async (ctx) => {
+  await send(ctx, ctx.path, { root: __dirname + '/../../docs' });
+});
 // this page is so we can view what tests are
 // currently still waiting for answer submission
 router.get("/view", async (ctx) => {
@@ -39,9 +45,26 @@ router.get("/view", async (ctx) => {
 
 // this page is the main page, it will explain
 // how to use the questions API
-app.use(serve(path.resolve(__dirname+"/../../docs"), {
-  index: "login.html"
-}));
+
+router.get("/", async (ctx, next) => {
+  console.log("[info] served 'login page'");
+  await send(ctx, "docs/login.html");
+  return next();
+})
+
+router.post("/", async (ctx, next) => {
+  console.log("[info] served home page");
+
+  if (!credentialsValid(ctx.request.body.username, ctx.request.body.password)){
+    console.log("[info] someone failed to login")
+    ctx.redirect("/?error=true");
+
+    return next();
+  }
+
+  await send(ctx, "docs/index.html");
+  return next();
+});
 
 // this page is for generating a new question
 // that will be waiting in the database for the answers
