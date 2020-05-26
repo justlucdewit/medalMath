@@ -1,5 +1,6 @@
 import { getAnswers } from "./questions";
 import { promisify } from "util";
+import bcrypt from "bcrypt";
 
 require("dotenv").config();
 
@@ -64,6 +65,18 @@ export const retrieveAllPending = async () => {
   return await query(queryString);
 };
 
-export const credentialsValid = (username:string, password:string) => {
+export const isValidUsername = (string:string) => !/[^a-zA-Z_.0-9]/.test(string);
+
+export const credentialsValid = async (username:string, password:string) => {
+  // anti SQL injections
+  if (!isValidUsername(username)){
+    return false;
+  }
+
+  const queryString = `SELECT password FROM teachers WHERE username = '${username}'`;
+  const res = await query(queryString);
+  if (res.rows.length > 0 && await bcrypt.compare(password, res.rows[0].password)){
+    return true
+  }
   return false;
 }

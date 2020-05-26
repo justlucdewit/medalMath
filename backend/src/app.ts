@@ -55,11 +55,12 @@ router.get("/", async (ctx, next) => {
 router.post("/", async (ctx, next) => {
   console.log("[info] served home page");
 
-  if (!credentialsValid(ctx.request.body.username, ctx.request.body.password)){
-    console.log("[info] someone failed to login")
+  if (!await credentialsValid(ctx.request.body.username, ctx.request.body.password)){
+    console.log(`[info] ${ctx.request.body.username} failed to login`);
     ctx.redirect("/?error=true");
-
     return next();
+  }else{
+    console.log(`[info] ${ctx.request.body.username} logged in`);
   }
 
   await send(ctx, "docs/index.html");
@@ -109,5 +110,5 @@ router.get("/submit/:uuid", async (ctx) => {
 
 // create use a port to host the api
 app.listen(process.env.PORT, function () {
-  return console.log(`server started ${process.env.PORT}`);
+  return console.log(`server started on port ${process.env.PORT}`);
 });
