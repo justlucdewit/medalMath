@@ -1,7 +1,9 @@
 // import stuff for koa (so i can host the API)
-import koaSend from "koa-send";
+import serve from "koa-static";
 import Koa from "koa";
 import Router from "koa-router";
+import path from "path";
+import fs from "fs";
 
 // import some custom functions to handle question generation
 // and also database opperations
@@ -37,7 +39,9 @@ router.get("/view", async (ctx) => {
 
 // this page is the main page, it will explain
 // how to use the questions API
-router.get("/", async (ctx) => koaSend(ctx, "./docs/login.html"));
+app.use(serve(path.resolve(__dirname+"/../../docs"), {
+  index: "login.html"
+}));
 
 // this page is for generating a new question
 // that will be waiting in the database for the answers
