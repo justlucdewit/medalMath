@@ -4,6 +4,10 @@ import bcrypt from "bcrypt";
 
 require("dotenv").config();
 
+const possibleCodes = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", 0, 1, 2, 3, 4, 5, 6, 7,
+8, 9];
+
 // initialize database connection
 const pg = require("pg");
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -65,7 +69,8 @@ export const retrieveAllPending = async () => {
   return await query(queryString);
 };
 
-export const isValidUsername = (string:string) => !/[^a-zA-Z_.0-9]/.test(string);
+const isValidUsername = (un:string) => !/[^a-zA-Z_.0-9]/.test(un);
+const isValidPassword = (pw:string) => pw.length > 7 && !/[^a-zA-Z0-9._!$@]/.test(pw);
 
 export const credentialsValid = async (username:string, password:string) => {
   // anti SQL injections
@@ -79,4 +84,37 @@ export const credentialsValid = async (username:string, password:string) => {
     return true
   }
   return false;
+}
+
+export const createInvite = async (size:number) => {
+  let code = "";
+  for (let i = 0; i < 16; i++){
+    code+=possibleCodes[Math.floor(Math.random()*possibleCodes.length)];
+  }
+  console.log(code);
+  const queryString = `INSERT INTO productCodes(code, accsize, teacher) VALUES ('${code}', ${size}, TRUE)`;
+  await query(queryString);
+  return code;
+}
+
+export const redeemInvite = async (inviteCode:string, username:string, password:string) => {
+  // validation
+  if (!isValidUsername(username) || !isValidPassword(password)){
+     return false;
+  }
+
+  const queryString = `SELECT accsize, teacher FROM productcodes WHERE code = '${inviteCode}'`;
+  const res = await query(queryString);
+  if (res.rows.length == 0){
+    return false;
+  }
+  const accsize = res.rows[0].accsize;
+  query(`DELETE FROM productcodes WHERE code = '${inviteCode}'`);
+  console.log(res)
+  if (res.rows[0].teacher){
+    const uid = (await query("SELECT MAX(userid) FROM teachers")).rows[0].max + 1;
+    query(`INSERT INTO teachers(userid, username, password, studentsallowed, signedup) VALUES (${uid}, '${username}', '${await bcrypt.hash(password, 10)}', ${accsize}, NOW())`);
+  }
+
+  return true;
 }
