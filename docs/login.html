@@ -6,15 +6,19 @@
     <title>Medal Math</title>
   </head>
   <body>
-    <div class="page"></div>
-    <div class="logo"><img src="images/medalmath.png" height="100" width="195"></div>
-    <div class="login">
-      <div class="errorBox">Password or username<br>invalid try again</div>
-      <form action="./" method="post">
-        <input class="loginBox" placeholder="username" name="username"><br>
-        <input class="loginBox" type="password" placeholder="password" name="password"><br>
-        <button class="loginButton">Login</button>
-      </form>
+    <div class="page">
+      <div class="logo"><img src="images/medalmath.png" height="100" width="195"></div>
+      <div class="login">
+        <div class="errorBox">Password or username<br>invalid try again</div>
+        <form action="./" method="post">
+          <input class="loginBox" placeholder="username" name="username"><br>
+          <input class="loginBox" type="password" placeholder="password" name="password"><br>
+          <button class="loginButton">Login</button>
+        </form>
+      </div>
+      <div class="register"> 
+        <p>Nog geen account? Registreer dan <a class="registerButton" href="register.html">hier</a></p>
+      </div>
     </div>
     <script src="scripts/checkLoginError.js"></script>
   </body>
