@@ -21,38 +21,22 @@ const query = promisify(pool.query.bind(pool));
 
 export const insertQuestion = (QID: string, questions: string[]) => {
   // build query
-  const queryString = `INSERT INTO pendingtests(uuid, time, answers) VALUES ('${QID.split(
-    "-"
-  ).join("")}', '${new Date()
-    .toJSON()
-    .replace("T", " ")
-    .replace("Z", "")}', '{${getAnswers(questions)}}');`;
+  const queryString = `INSERT INTO pendingtests(uuid, time, answers) VALUES ('${QID.split("-").join("")}', NOW(), '{${getAnswers(questions)}}');`;
 
   // execute query
-  pool.query(queryString, (err, res) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.info("[info] inserted new pending test");
-    }
-  });
+  query(queryString);
+  console.log("[INFO] started new exercise");
 };
 
 export const cleanPending = () => {
   const queryString = `DELETE FROM pendingtests WHERE time < now() - interval '3 hour'`;
-  pool.query(queryString, (err) => {
-    if (err) {
-      console.error(
-        "[error] an error occured while cleaning the pendingtest table: " + err
-      );
-    }
-  });
+  query(queryString)
+  console.log("[INFO] cleaned the database");
 };
 
 export const resolvePending = async (uuid: string) => {
   const queryString = `SELECT * FROM pendingtests WHERE uuid = '${uuid}'`;
   let res = await query(queryString);
-  console.log(res);
   if (res.rows.length === 0) {
     console.error(
       "[error] somone tried submitting a pendingtest that wasnt stored anymore"
@@ -91,9 +75,9 @@ export const createInvite = async (size:number) => {
   for (let i = 0; i < 16; i++){
     code+=possibleCodes[Math.floor(Math.random()*possibleCodes.length)];
   }
-  console.log(code);
+  console.log("[INFO] created productcode "+code);
   const queryString = `INSERT INTO productCodes(code, accsize, teacher) VALUES ('${code}', ${size}, TRUE)`;
-  await query(queryString);
+  query(queryString);
   return code;
 }
 
@@ -110,7 +94,6 @@ export const redeemInvite = async (inviteCode:string, username:string, password:
   }
   const accsize = res.rows[0].accsize;
   query(`DELETE FROM productcodes WHERE code = '${inviteCode}'`);
-  console.log(res)
   if (res.rows[0].teacher){
     const uid = (await query("SELECT MAX(userid) FROM teachers")).rows[0].max + 1;
     query(`INSERT INTO teachers(userid, username, password, studentsallowed, signedup) VALUES (${uid}, '${username}', '${await bcrypt.hash(password, 10)}', ${accsize}, NOW())`);

@@ -1,11 +1,11 @@
 // import stuff for koa (so i can host the API)
-import serve from "koa-static";
 import Koa from "koa";
+import serve from "koa-static";
 import Router from "koa-router";
-import path from "path";
-import fs from "fs";
 import bodyParser from "koa-bodyparser";
 import send from "koa-send";
+import path from "path";
+import fs from "fs";
 
 // import some custom functions to handle question generation
 // and also database opperations
@@ -130,6 +130,6 @@ router.get("/redeem/:code/:name/:pass", async (ctx) => {
 });
 
 // create use a port to host the api
-app.listen(process.env.PORT, function () {
+app.listen(process.env.PORT, () => {
   return console.log(`server started on port ${process.env.PORT}`);
 });

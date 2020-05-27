@@ -20,7 +20,6 @@ export const generateQuestion = (config: questionConfig) => {
   let answer = eval(q);
   while (!config.negativesAllowed && answer < 0) {
     q = generateQuestion(config);
-    answer = eval(q);
   }
   return q;
 };
