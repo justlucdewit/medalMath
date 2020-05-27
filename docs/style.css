@@ -144,9 +144,9 @@ hr {
 
 .login{
     width: 100vw;
-    text-align: center;
-    position: absolute;
-    top: 40vh;
+    text-align: left;
+    margin-top: 35vh;
+    margin-left: 30vw;
 }
 
 .loginBox{
@@ -177,9 +177,11 @@ hr {
 }
 
 .loginButton{
-    display: inline-block;
+    display: inline;
     padding: 6px;
     margin: 2px;
+    margin-top: 8px;
+    margin-right: 20px;
     font-size: 20px;
     border-radius: 2%;
     border:0.3vw solid #8DD6EB;
@@ -188,6 +190,5 @@ hr {
 }
 
 .register {
-    margin-top: 40vh;
-    margin-left: 29.5vw;
+    display: inline;
 }

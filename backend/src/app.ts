@@ -129,6 +129,11 @@ router.get("/redeem/:code/:name/:pass", async (ctx) => {
   }
 });
 
+router.get("/register", async (ctx, next) => {
+  console.log("[info] served 'register page'");
+  await send(ctx, "docs/register.html");
+});
+
 // create use a port to host the api
 app.listen(process.env.PORT, () => {
   return console.log(`server started on port ${process.env.PORT}`);
