@@ -81,10 +81,16 @@ export const createInvite = async (size:number) => {
   return code;
 }
 
+const usernameFree = async (username:string) => (await query(`SELECT accsize FROM teachers WHERE username = ${username}`)).rows.length == 0;
+
 export const redeemInvite = async (inviteCode:string, username:string, password:string) => {
   // validation
-  if (!isValidUsername(username) || !isValidPassword(password)){
-     return false;
+  if (!isValidUsername(username)){
+    return "Username is invalid";
+  } else if (!isValidPassword(password)){
+    return "Password is invalid";
+  } else if (!usernameFree(username)){
+     return "Username already taken";
   }
 
   const queryString = `SELECT accsize, teacher FROM productcodes WHERE code = '${inviteCode}'`;

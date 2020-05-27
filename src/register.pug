@@ -5,3 +5,16 @@ html
 		link(rel="stylesheet" href="/style.css")
 		title Medal Math
 	body
+		div.page
+			include components/logo
+			form(action="", method="post").login Registreer:
+				br
+				input(placeholder="product code", name="productcode").loginBox
+				br
+				input(placeholder="username", name="productcode").loginBox
+				br
+				input(placeholder="password", name="password").loginBox
+				br
+				input(placeholder="herhaal password", name="passwordRepeat").loginBox
+				br
+				button.loginButton Login
