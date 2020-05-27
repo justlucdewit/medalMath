@@ -1,16 +1,18 @@
 // import stuff for koa (so i can host the API)
-import serve from "koa-static";
 import Koa from "koa";
+import serve from "koa-static";
 import Router from "koa-router";
-import path from "path";
-import fs from "fs";
 import bodyParser from "koa-bodyparser";
 import send from "koa-send";
+import path from "path";
+import fs from "fs";
 
 // import some custom functions to handle question generation
 // and also database opperations
 import { generateQuestionArray } from "./questions";
 import {
+  redeemInvite,
+  createInvite,
   insertQuestion,
   retrieveAllPending,
   cleanPending,
@@ -32,6 +34,7 @@ app.use(router.routes());
 app.use(async (ctx) => {
   await send(ctx, ctx.path, { root: __dirname + '/../../docs' });
 });
+
 // this page is so we can view what tests are
 // currently still waiting for answer submission
 router.get("/view", async (ctx) => {
@@ -45,7 +48,6 @@ router.get("/view", async (ctx) => {
 
 // this page is the main page, it will explain
 // how to use the questions API
-
 router.get("/", async (ctx, next) => {
   console.log("[info] served 'login page'");
   await send(ctx, "docs/login.html");
@@ -55,11 +57,12 @@ router.get("/", async (ctx, next) => {
 router.post("/", async (ctx, next) => {
   console.log("[info] served home page");
 
-  if (!credentialsValid(ctx.request.body.username, ctx.request.body.password)){
-    console.log("[info] someone failed to login")
+  if (!await credentialsValid(ctx.request.body.username, ctx.request.body.password)){
+    console.log(`[info] ${ctx.request.body.username} failed to login`);
     ctx.redirect("/?error=true");
-
     return next();
+  }else{
+    console.log(`[info] ${ctx.request.body.username} logged in`);
   }
 
   await send(ctx, "docs/index.html");
@@ -107,7 +110,26 @@ router.get("/submit/:uuid", async (ctx) => {
   ctx.body = res;
 });
 
+router.get("/invite/:masterKey/:size", async (ctx) => {
+  if (ctx.params.masterKey != process.env.masterKey || !ctx.params.size) {
+    ctx.body = "invalid master key";
+  }else{
+    const code = await createInvite(ctx.params.size);
+    ctx.body = code;
+    console.log("[INFO] created new productCode");
+  }
+});
+
+router.get("/redeem/:code/:name/:pass", async (ctx) => {
+  const done = await redeemInvite(ctx.params.code, ctx.params.name, ctx.params.pass);
+  if (done){
+    console.log(`[INFO] created new account named ${ctx.params.name} using code ${ctx.params.code}`);
+  } else {
+    console.log(`[INFO] failed to redeem account`);
+  }
+});
+
 // create use a port to host the api
-app.listen(process.env.PORT, function () {
-  return console.log(`server started ${process.env.PORT}`);
+app.listen(process.env.PORT, () => {
+  return console.log(`server started on port ${process.env.PORT}`);
 });
