@@ -105,10 +105,10 @@ router.get("/question", (ctx) => {
 // this page is used for submitting your personal answers
 // you will recieve the real answers, and the pending test
 // will be wiped from the database
-router.get("/submit/:uuid", async (ctx) => {
-  const res = await resolvePending(ctx.params.uuid);
-  ctx.body = res;
-});
+// router.get("/submit/:uuid", async (ctx) => {
+//   const res = await resolvePending(ctx.params.uuid);
+//   ctx.body = res;
+// });
 
 router.get("/invite/:masterKey/:size", async (ctx) => {
   if (ctx.params.masterKey != process.env.masterKey || !ctx.params.size) {
@@ -120,14 +120,14 @@ router.get("/invite/:masterKey/:size", async (ctx) => {
   }
 });
 
-router.get("/redeem/:code/:name/:pass", async (ctx) => {
-  const done = await redeemInvite(ctx.params.code, ctx.params.name, ctx.params.pass);
-  if (done){
-    console.log(`[INFO] created new account named ${ctx.params.name} using code ${ctx.params.code}`);
-  } else {
-    console.log(`[INFO] failed to redeem account`);
-  }
-});
+// router.get("/redeem/:code/:name/:pass", async (ctx) => {
+//   const done = await redeemInvite(ctx.params.code, ctx.params.name, ctx.params.pass);
+//   if (done){
+//     console.log(`[INFO] created new account named ${ctx.params.name} using code ${ctx.params.code}`);
+//   } else {
+//     console.log(`[INFO] failed to redeem account`);
+//   }
+// });
 
 router.get("/register", async (ctx, next) => {
   console.log("[INFO] served 'register page'");
