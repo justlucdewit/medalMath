@@ -49,20 +49,20 @@ router.get("/view", async (ctx) => {
 // this page is the main page, it will explain
 // how to use the questions API
 router.get("/", async (ctx, next) => {
-  console.log("[info] served 'login page'");
+  console.log("[INFO] served 'login page'");
   await send(ctx, "docs/login.html");
   return next();
 })
 
 router.post("/", async (ctx, next) => {
-  console.log("[info] served home page");
+  console.log("[INFO] served home page");
 
   if (!await credentialsValid(ctx.request.body.username, ctx.request.body.password)){
-    console.log(`[info] ${ctx.request.body.username} failed to login`);
-    ctx.redirect("/?error=true");
+    console.log(`[INFO] ${ctx.request.body.username} failed to login`);
+    ctx.redirect("/?error=Password or username incorrect, probeer opnieuw");
     return next();
   }else{
-    console.log(`[info] ${ctx.request.body.username} logged in`);
+    console.log(`[INFO] ${ctx.request.body.username} logged in`);
   }
 
   await send(ctx, "docs/index.html");
@@ -130,8 +130,30 @@ router.get("/redeem/:code/:name/:pass", async (ctx) => {
 });
 
 router.get("/register", async (ctx, next) => {
-  console.log("[info] served 'register page'");
+  console.log("[INFO] served 'register page'");
   await send(ctx, "docs/register.html");
+});
+
+router.post("/register", async (ctx, next) => {
+  const pr = ctx.request.body;
+  const status = await redeemInvite(pr.productcode, pr.username, pr.password[0]);
+
+  // check password match
+  if (pr.password[0] != pr.password[1]){
+    console.log("[INFO] register with non matching password");
+    ctx.redirect("/register.html?error=Passwords do not match");
+  }
+
+  
+  else if (status != true){
+    console.log("[INFO] register failed");
+    ctx.redirect(`/register.html?error=${status}`);
+  }else{
+    console.log("[INFO] registered new user!");
+    ctx.redirect('/?success=registratie gelukt!');
+
+    ctx.body = "success!";
+  }  
 });
 
 // create use a port to host the api

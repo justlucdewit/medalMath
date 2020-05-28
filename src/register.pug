@@ -6,15 +6,20 @@ html
 		title Medal Math
 	body
 		div.page
+			
+
 			include components/logo
-			form(action="", method="post").login Registreer:
-				br
-				input(placeholder="product code", name="productcode").loginBox
-				br
-				input(placeholder="username", name="productcode").loginBox
-				br
-				input(placeholder="password", name="password").loginBox
-				br
-				input(placeholder="herhaal password", name="passwordRepeat").loginBox
-				br
-				button.loginButton Login
+			div.login
+				div.errorBox
+				form(action="./register", method="post") Registreer:
+					br
+					input(placeholder="product code", name="productcode").loginBox
+					br
+					input(placeholder="username", name="username").loginBox
+					br
+					input(type="password", placeholder="password", name="password").loginBox
+					br
+					input(type="password", placeholder="herhaal password", name="password").loginBox
+					br
+					button.loginButton Registreer
+		script(src="scripts/checkLoginError.js")

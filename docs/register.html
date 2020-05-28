@@ -8,13 +8,17 @@
   <body>
     <div class="page">
       <div class="logo"><img src="images/medalmath.png" height="100" width="195"></div>
-      <form class="login" action="" method="post">Registreer:<br>
-        <input class="loginBox" placeholder="product code" name="productcode"><br>
-        <input class="loginBox" placeholder="username" name="productcode"><br>
-        <input class="loginBox" placeholder="password" name="password"><br>
-        <input class="loginBox" placeholder="herhaal password" name="passwordRepeat"><br>
-        <button class="loginButton">Login</button>
-      </form>
+      <div class="login">
+        <div class="errorBox"></div>
+        <form action="./register" method="post">Registreer:<br>
+          <input class="loginBox" placeholder="product code" name="productcode"><br>
+          <input class="loginBox" placeholder="username" name="username"><br>
+          <input class="loginBox" type="password" placeholder="password" name="password"><br>
+          <input class="loginBox" type="password" placeholder="herhaal password" name="password"><br>
+          <button class="loginButton">Registreer</button>
+        </form>
+      </div>
     </div>
+    <script src="scripts/checkLoginError.js"></script>
   </body>
 </html>

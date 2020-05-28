@@ -12,7 +12,7 @@ const possibleCodes = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l
 const pg = require("pg");
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASEURL,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
@@ -81,22 +81,24 @@ export const createInvite = async (size:number) => {
   return code;
 }
 
-const usernameFree = async (username:string) => (await query(`SELECT accsize FROM teachers WHERE username = ${username}`)).rows.length == 0;
+const usernameFree = async (username:string) => (await query(`SELECT userid FROM teachers WHERE username = '${username}'`)).rows.length == 0;
 
 export const redeemInvite = async (inviteCode:string, username:string, password:string) => {
   // validation
+  console.log("!!!")
   if (!isValidUsername(username)){
-    return "Username is invalid";
+    return "Username is niet geldig, username mag _ of . bevatten";
   } else if (!isValidPassword(password)){
-    return "Password is invalid";
-  } else if (!usernameFree(username)){
-     return "Username already taken";
+    return "Password moet minstens 8 tekens bevatten, en mag alleen letters, nummers @, !, _, $ of . bevatten";
+  } else if (!await usernameFree(username)){
+     return "Username is al in gebruik";
   }
+
 
   const queryString = `SELECT accsize, teacher FROM productcodes WHERE code = '${inviteCode}'`;
   const res = await query(queryString);
   if (res.rows.length == 0){
-    return false;
+    return "er zit een fout in de product code, heb je het misspelt? anders neem contact op met de site admin";
   }
   const accsize = res.rows[0].accsize;
   query(`DELETE FROM productcodes WHERE code = '${inviteCode}'`);

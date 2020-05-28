@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "nodemon ./backend/dist/app.js",
     "start": "node ./backend/dist/app.js",
+    "pug": "pug -o docs -P src",
     "build": "tsc",
+    "pugw": "pug -o docs -P src -w",
+    "buildw": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
