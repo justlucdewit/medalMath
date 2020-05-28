@@ -53,6 +53,7 @@ export const retrieveAllPending = async () => {
   return await query(queryString);
 };
 
+const isValidProductcode = (pc:string) => !/[^a-z0-9]/.test(pc);
 const isValidUsername = (un:string) => !/[^a-zA-Z_.0-9]/.test(un);
 const isValidPassword = (pw:string) => pw.length > 7 && !/[^a-zA-Z0-9._!$@]/.test(pw);
 
@@ -91,6 +92,8 @@ export const redeemInvite = async (inviteCode:string, username:string, password:
     return "Password moet minstens 8 tekens bevatten, en mag alleen letters, nummers @, !, _, $ of . bevatten";
   } else if (!await usernameFree(username)){
      return "Username is al in gebruik";
+  } else if (!isValidProductcode(inviteCode)){
+    return "er zit een fout in de product code, heb je het misspelt? anders neem contact op met de site admin";
   }
 
 
