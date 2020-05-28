@@ -85,9 +85,8 @@ const usernameFree = async (username:string) => (await query(`SELECT userid FROM
 
 export const redeemInvite = async (inviteCode:string, username:string, password:string) => {
   // validation
-  console.log("!!!")
   if (!isValidUsername(username)){
-    return "Username is niet geldig, username mag _ of . bevatten";
+    return "Username is niet geldig, username mag alleen letters, _ of . bevatten";
   } else if (!isValidPassword(password)){
     return "Password moet minstens 8 tekens bevatten, en mag alleen letters, nummers @, !, _, $ of . bevatten";
   } else if (!await usernameFree(username)){
