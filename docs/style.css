@@ -214,3 +214,33 @@ hr {
     text-indent: 25px;
     overflow:auto;
 }
+
+.question {
+    text-align:center;
+    margin-top:5vh;
+}
+
+.sum {
+    margin-top: 20vh;
+    margin-left:25vw;
+    margin-bottom:-6.4vh;
+}
+
+.answer input {
+    margin-left:35vw;
+    width:10vw;
+    height:5vh;
+    font-size: 40px;
+}
+
+.nextquest {
+    background-color:#2F849C;
+    color: white;
+    font-size: 20px;
+    margin-top:5vh;
+    margin-left: 43vw;
+    height: 4vh;
+    width:6vw;
+    border-radius: 2vh;
+}
+
