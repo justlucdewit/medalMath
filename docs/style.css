@@ -23,7 +23,9 @@ p {
     width:100vw;
 }
 
-.blueMed, .greenMed, .redMed, .exBox, .navbar, .results, .homework,.exnav, .excomp {
+.blueMed, .greenMed, .redMed, .exBox, .navbar, .results, 
+.homework, .exnav, .excomp, .teachercom, .teachernavbar, 
+.addstudentbox, .addhomeworkbox, .studentresultbox {
     float: left;
     font-family: 'Roboto', sans-serif;
     background-color: white;
@@ -79,14 +81,14 @@ p {
     margin-top:2vh;
 }
 
-.navbar, .exnav {
+.navbar, .exnav, .teachernavbar {
     margin-left: 2vw;
     margin-top: 2vh;
     width: 20vw;
     height: 690px;
 }
 
-.navtext, .exnavtext {
+.navtext, .exnavtext, .teachernavtext {
     float:left;
     margin-top:120px;
     margin-left:1vw;
@@ -96,7 +98,7 @@ p {
     width: 40px;
 }
 
-.dash li {
+.dash li, .teacherdash li {
     list-style-image: url("images/dash.png");
 }
 
@@ -108,16 +110,16 @@ p {
     list-style-image: url("images/logout.png");
 }
 
-.dash a:link, .expl a:link, .logout a:link, .back a:link {
+.dash a:link, .expl a:link, .logout a:link, .back a:link, .teacherdash a:link {
     color:black;
     text-decoration:none;
 }
 
-.dash a:hover, .expl a:hover, .logout a:hover, .back a:hover {
+.dash a:hover, .expl a:hover, .logout a:hover, .back a:hover, .teacherdash a:hover {
     text-shadow:1px 1px #3DACCC;
 }
 
-.dash a:visited, .expl a:visited, .logout a:visited, .back a:visited {
+.dash a:visited, .expl a:visited, .logout a:visited, .back a:visited, .teacherdash a:visited {
     color:black;
 }
 
@@ -244,3 +246,30 @@ hr {
     border-radius: 2vh;
 }
 
+/*teacher*/
+
+.teachercom, .addstudentbox, .addhomeworkbox, .studentresultbox {
+    margin-left: 2vw;
+    margin-top: 2vh;
+    width: 70vw;
+    height: 690px;
+}
+
+.teachercom ul {
+    margin-top: 30vh;
+    margin-left: -5vw;
+    list-style-type: none;
+}
+
+.addhomework a:link, .studentresult a:link, .addstudent a:link {
+    color:black;
+    text-decoration:none;
+}
+
+.addhomework a:hover, .studentresult a:hover, .addstudent a:hover {
+    text-decoration: underline;
+}
+
+.addhomework a:visited, .studentresult a:visited, .addstudent a:visited {
+    color:black;
+}
