@@ -28,6 +28,13 @@ import { v4 as uuidv4 } from "uuid";
 const app = new Koa();
 const router = new Router();
 
+interface session {
+  username:string,
+  sessionID:string,
+}
+
+let sessions:session[] = [];
+
 // make koa the router
 app.use(bodyParser());
 app.use(router.allowedMethods());
@@ -48,6 +55,11 @@ router.get("/view", async (ctx) => {
 });
 
 router.get("/exercises", async (ctx, next) => {
+  let session = sessions.find( ses => ses.sessionID === ctx.cookies.get('session') && ses.username === ctx.cookies.get('username'));
+  if (session === undefined) {
+    ctx.redirect("/");
+  }
+
   let QID = await createQuestion();
   ctx.cookies.set('uuid', QID, {httpOnly: false});
   await send (ctx, "docs/exercises.html");
@@ -74,6 +86,10 @@ router.post("/", async (ctx, next) => {
     ctx.redirect("/?error=Password or username incorrect, probeer opnieuw");
     return next();
   }else{
+    const sessionID = uuidv4();
+    sessions.push({sessionID: sessionID, username: ctx.request.body.username});
+    ctx.cookies.set('session', sessionID, {httpOnly: false});
+    ctx.cookies.set('username', ctx.request.body.username);
     console.log(`[INFO] ${ctx.request.body.username} logged in`);
   }
 
