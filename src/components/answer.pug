@@ -1,5 +1,5 @@
 div.answer
     form(action="./", method="post")
-    input(name="answer")
+    input#answer(name="answer")
     br
-    button.nextquest Volgende
+    button.nextquest(onClick="nextQuestion()") Volgende

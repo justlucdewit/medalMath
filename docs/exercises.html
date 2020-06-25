@@ -18,16 +18,17 @@
     </div>
     <div class="excomp">
       <div class="question">
-        <h3>Vraag 1</h3>
+        <h3 id="progress"></h3>
       </div>
       <div class="sum">
-        <h1>12 : 6 =</h1>
+        <h1 id="sum"></h1>
       </div>
       <div class="answer">
         <form action="./" method="post"></form>
-        <input name="answer"><br>
-        <button class="nextquest">Volgende</button>
+        <input id="answer" name="answer"><br>
+        <button class="nextquest" onClick="nextQuestion()">Volgende</button>
       </div>
     </div>
+    <script src="scripts/mountQuestions.js"></script>
   </body>
 </html>

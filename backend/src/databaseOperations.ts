@@ -21,7 +21,7 @@ const query = promisify(pool.query.bind(pool));
 
 export const insertQuestion = (QID: string, questions: string[]) => {
   // build query
-  const queryString = `INSERT INTO pendingtests(uuid, time, answers) VALUES ('${QID.split("-").join("")}', NOW(), '{${getAnswers(questions)}}');`;
+  const queryString = `INSERT INTO pendingtests(uuid, time, answers, questions) VALUES ('${QID.split("-").join("")}', NOW(), '{${getAnswers(questions)}}', '{ ${questions.toString()} }');`;
 
   // execute query
   query(queryString);
@@ -53,9 +53,10 @@ export const retrieveAllPending = async () => {
   return await query(queryString);
 };
 
-const isValidProductcode = (pc:string) => !/[^a-z0-9]/.test(pc);
+const isValidProductcode = (pc:string) => !/[^a-z0-9]/.test(pc) && pc.length === 16;
 const isValidUsername = (un:string) => !/[^a-zA-Z_.0-9]/.test(un);
 const isValidPassword = (pw:string) => pw.length > 7 && !/[^a-zA-Z0-9._!$@]/.test(pw);
+const isValidQID = (qid:string) => qid.length == 36 && !/[^0-9a-z-]/.test(qid);
 
 export const credentialsValid = async (username:string, password:string) => {
   // anti SQL injections
@@ -96,7 +97,6 @@ export const redeemInvite = async (inviteCode:string, username:string, password:
     return "er zit een fout in de product code, heb je het misspelt? anders neem contact op met de site admin";
   }
 
-
   const queryString = `SELECT accsize, teacher FROM productcodes WHERE code = '${inviteCode}'`;
   const res = await query(queryString);
   if (res.rows.length == 0){
@@ -111,3 +111,21 @@ export const redeemInvite = async (inviteCode:string, username:string, password:
 
   return true;
 }
+
+export const getQuestion = async (id:string) => {
+  if (isValidQID(id)) {
+    const queryString = `SELECT questions FROM pendingtests WHERE uuid = '${id.split("-").join("")}';`;
+    const res = await query(queryString);
+    console.log(res.rows[0]);
+    if (res.rows.length == 0) {
+      console.log("[ERROR] someone tried to get a question with invalid QID");
+      return {};
+    } else {
+      return res.rows[0];
+    }
+
+  } else {
+    console.log("[ERROR] someone tried to get a question with invalid QID");
+    return {};
+  }
+};

@@ -16,6 +16,7 @@ import {
   insertQuestion,
   retrieveAllPending,
   cleanPending,
+  getQuestion,
   resolvePending,
   credentialsValid,
 } from "./databaseOperations";
@@ -46,6 +47,18 @@ router.get("/view", async (ctx) => {
   }
 });
 
+router.get("/exercises", async (ctx, next) => {
+  let QID = createQuestion();
+  ctx.cookies.set('uuid', QID, {httpOnly: false});
+  console.log(ctx.cookies.get("aaa"));
+  await send (ctx, "docs/exercises.html");
+});
+
+router.get("/api/:id", async (ctx, next) => {
+  let questions = await getQuestion(ctx.params.id);
+  ctx.body = questions;
+});
+
 // this page is the main page, it will explain
 // how to use the questions API
 router.get("/", async (ctx, next) => {
@@ -71,36 +84,22 @@ router.post("/", async (ctx, next) => {
 
 // this page is for generating a new question
 // that will be waiting in the database for the answers
-router.get("/question", (ctx) => {
+const createQuestion = () => {
   cleanPending();
-  const count = ctx.query.count === undefined ? 1 : ctx.query.count;
-  const max = ctx.query.max === undefined ? 2 : ctx.query.max;
-  const terms = ctx.query.terms === undefined ? 2 : ctx.query.terms;
-  const operators: string[] =
-    ctx.query.operators === undefined
-      ? ["+", "-"]
-      : Array.from(JSON.parse(ctx.query.operators));
-  const negatives =
-    ctx.query.negatives === undefined ? false : ctx.query.negatives === "true";
-
-  const QID: string = uuidv4();
+  let qid = uuidv4();
   const questions = generateQuestionArray(
     {
-      maxDigits: max,
-      numberOfTerms: terms,
-      operatorsAllowed: operators,
-      negativesAllowed: negatives,
+      maxDigits: 2,
+      numberOfTerms: 2,
+      operatorsAllowed: ["+", "-"],
+      negativesAllowed: true,
     },
-    count
+    10
   );
 
-  ctx.body = {
-    questions: questions,
-    uuid: QID,
-  };
-
-  insertQuestion(QID, questions);
-});
+  insertQuestion(qid, questions);
+  return qid
+};
 
 // this page is used for submitting your personal answers
 // you will recieve the real answers, and the pending test
@@ -141,7 +140,7 @@ router.post("/register", async (ctx, next) => {
   // check password match
   if (pr.password[0] != pr.password[1]){
     console.log("[INFO] register with non matching password");
-    ctx.redirect("/register.html?error=Passwords do not match");
+    ctx.redirect("/register.html?error=Passwords zijn niet hetzelfde");
   }
 
   
