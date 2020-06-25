@@ -4,7 +4,7 @@ let q;
 let qindex = 0;
 
 const mountFromUUID = async () => {
-	const questions = await fetch(`http://localhost:5000/api/${uuid}`);
+	const questions = await fetch(`https://medal-math.herokuapp.com/api/${uuid}`);
 	q = (await questions.json()).questions;
 	nextQuestion()
 };
