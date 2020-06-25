@@ -19,12 +19,12 @@ const pool = new pg.Pool({
 });
 const query = promisify(pool.query.bind(pool));
 
-export const insertQuestion = (QID: string, questions: string[]) => {
+export const insertQuestion = async (QID: string, questions: string[]) => {
   // build query
   const queryString = `INSERT INTO pendingtests(uuid, time, answers, questions) VALUES ('${QID.split("-").join("")}', NOW(), '{${getAnswers(questions)}}', '{ ${questions.toString()} }');`;
 
   // execute query
-  query(queryString);
+  await query(queryString);
   console.log("[INFO] started new exercise");
 };
 

@@ -48,9 +48,8 @@ router.get("/view", async (ctx) => {
 });
 
 router.get("/exercises", async (ctx, next) => {
-  let QID = createQuestion();
+  let QID = await createQuestion();
   ctx.cookies.set('uuid', QID, {httpOnly: false});
-  console.log(ctx.cookies.get("aaa"));
   await send (ctx, "docs/exercises.html");
 });
 
@@ -84,7 +83,7 @@ router.post("/", async (ctx, next) => {
 
 // this page is for generating a new question
 // that will be waiting in the database for the answers
-const createQuestion = () => {
+const createQuestion = async () => {
   cleanPending();
   let qid = uuidv4();
   const questions = generateQuestionArray(
@@ -97,7 +96,7 @@ const createQuestion = () => {
     10
   );
 
-  insertQuestion(qid, questions);
+  await insertQuestion(qid, questions);
   return qid
 };
 
